@@ -1,0 +1,543 @@
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+	.text_sections > div > h3 {
+		background: linear-gradient(90deg, rgba(217, 217, 224, 1) 0%, rgba(244, 244, 245, 1) 100%, rgba(224, 224, 224, 0.5074404761904762) 100%);
+		padding: 13px 0px 13px 15px;
+		border-radius: 10px;
+	}
+	
+	.text_sections > div > div {
+		padding: 13px;
+	}
+	
+	.text_sections > div > h3 > span {
+		color: red;
+		text-decoration: underline;
+		font-size: 15;
+	}
+	
+	.menu {
+		width: 100%;
+		text-align: center;
+		padding: 60px 0px 0px 0px;
+	}
+	
+	#menuButtons > div:nth-child(2) {
+		margin-top: -55px;
+	}
+	
+	.arrow {
+		margin-top: -35px;
+		height: 60px;
+		
+	}
+	
+	.arrow > img{
+		display:none;
+	}
+	
+	button {
+		all: unset;
+		padding: 15px;
+		cursor: pointer;
+	}
+	
+	@-webkit-keyframes arrow-jump {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+			-webkit-transform: translateY(3px);
+			-moz-transform: translateY(3px);
+			-0-transform: translateY(3px);
+			transform: translateY(3px);
+		}
+	}
+	
+	button:hover{
+		 transition: box-shadow .3s;
+		 text-shadow: 0px 2px 9px #8f8f8f66
+	}
+	
+	button:hover .arrow {
+		
+		filter: invert(13%) sepia(100%) saturate(6385%) hue-rotate(358deg) brightness(111%) contrast(121%);
+		-webkit-animation: arrow-jump 1s infinite;
+		/* Safari 4+ */
+		-moz-animation: arrow-jump 1s infinite;
+		/* Fx 5+ */
+		-o-animation: arrow-jump 1s infinite;
+		/* Opera 12+ */
+		animation: arrow-jump 1s infinite;
+		/* IE 10+, Fx 29+ */;
+		
+	}
+	
+	button:hover .arrow > img {
+		display:inline-block;
+		text-align: center;
+	}
+	
+	.button__active {
+		border: 3px solid #405667;
+		border-radius: 15px 50px;
+		height: 132px;
+		box-shadow: 0px 8px 11px -4px #405667;
+	}
+	
+	.button__active .arrow {
+		filter: invert(13%) sepia(100%) saturate(6385%) hue-rotate(358deg) brightness(111%) contrast(121%);
+	}
+	
+	button:hover:after {
+		opacity: 1;
+		right: 10px;
+	}
+	
+	button > div {
+		font-weight: bold;
+		word-wrap: break-word;
+		width: 98px;
+		height: 85px;
+		color: #405667;
+	}
+	
+	button > div:nth-child(4) > img {
+		width: 20px;
+	}
+	
+	#topBtn {
+		display: none;
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		z-index: 99;
+		color: #405667;
+		cursor: pointer;
+		border-radius: 50%;
+		font-size: 18px;
+		padding: 5px;
+		transition: transform .2s;
+	}
+	
+	#topBtn:hover {
+		transform: scale(1.2);
+	}
+	
+	#topBtn > img {
+		width: 50px;
+	}
+	
+	.hero_banner {
+		background: url("images/banner.jpg");
+		height: 30%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: relative;
+	}
+	
+	.hero_text {
+		text-align: center;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: #405667;
+		font-size: 45px;
+		font-weight: bold;
+		border-bottom: 3px solid white;
+	}
+	
+	.text_sections {
+		padding: 35px;
+		margin-top: -60px;
+	}
+	
+	.language_section {
+		text-align: end;
+		margin: 10px 10px -100px 0px;
+	}
+	
+	.language_section > button > img {
+		width: 45px;
+	}
+	
+	.language_section > button {
+		padding: 0px;
+		transition: transform .2s;
+		text-align: center;
+	}
+	
+	.language_section > button:hover {
+		transform: scale(1.5);
+	}
+	
+
+	h3 {
+		color: #405667;
+	}
+	
+	body {
+		font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+		overflow-x: hidden;
+	}
+	
+	.content {
+		display: none;
+	}
+	
+	.intro {
+		background: linear-gradient(90deg, rgba(217, 217, 224, 1) 0%, rgba(244, 244, 245, 1) 100%, rgba(224, 224, 224, 0.5074404761904762) 100%);
+		overflow: hidden;
+	}
+	
+	.intro .intro-content {
+		z-index: 200;
+		text-align: center;
+		height: 100%;
+		overflow: hidden;
+	}
+	
+	.intro .intro-content > img {
+		margin-top: 10%;
+	}
+	
+	.intro .intro-content {
+		-webkit-transition: all 1s cubic-bezier(0.25, 0.25, 0.23, 1.405);
+		transition: all 1s cubic-bezier(0.25, 0.25, 0.23, 1.405);
+		-webkit-transform: scale(1.5);
+		transform: scale(1.5);
+		opacity: 0;
+	}
+	
+	.intro .intro-content.is-visible {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+	
+	#snackbar {
+	  visibility: hidden;
+	  min-width: 250px; 
+	  margin-left: -125px; 
+	  background-color: #333;
+	  color: #fff; 
+	  text-align: center; 
+	  border-radius: 2px; 
+	  padding: 16px;
+	  position: fixed;
+	  z-index: 1;
+	  left: 50%; 
+	  bottom: 30px; 
+	}
+
+	#snackbar.show {
+	  visibility: visible;
+	  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	}
+	
+	
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+	.en{display:none;}
+	</style>
+	<title>Master Data - Intranet</title>
+</head>
+
+<body>
+	<div class="intro">
+		<div class="intro-content"> <img src="images/RHI_Magnesita_Log.png" /> </div>
+	</div>
+	<div class="content">
+		<div class="hero_banner">
+			<div class="hero_text"> <span>Master Data</span> </div>
+		</div>
+		<div class="container">
+			<div class="language_section">
+				<button id="br" title="Português">
+					<img src="images/br_icon_flag.png" />
+				</button>
+				<button id="us" title="English">
+					<img src="images/us-flag-icon.png" />
+				</button>
+			</div>
+			<div class="menu">
+				<div id="menuButtons">
+					<div>
+						<button id="visionbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Nossa Visão</div>
+							<div class="en">Our Vision</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="missionbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Nossa Missão</div>
+							<div class="en">Our Mission</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="servicesbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Serviços Oferecidos</div>
+							<div class="en">Services Offered</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="pilaresbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Pilares do BSC</div>
+							<div class="en">BSC Pillars</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="organizacaobtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Organização</div>
+							<div class="en">Organization</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="contatobtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Contatos</div>
+							<div class="en">Contacts</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="manuaisbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Manuais</div>
+							<div class="en">Manuals</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+					</div>
+					<div>
+						<button id="catalogosbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Catálogos de serviço</div>
+							<div class="en">Service catalog</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="projetosbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Projetos (roadmap)</div>
+							<div class="en">Projects (roadmap)</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="curiosidadesbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Destaques</div>
+							<div class="en">Highlights</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="responsabilidadesbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Responsabilidades</div>
+							<div class="en">Responsabilities</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="mapabtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Mapa de processos</div>
+							<div class="en">Process Map</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="linksbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Central de links</div>
+							<div class="en">Links</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="calendariobtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Calendário</div>
+							<div class="en">Calendar</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+						<button id="vitalbtn">
+							<div><img src="images/icon_test.jpg" /></div>
+							<div class="pt">Vital signs</div>
+							<div class="en">Vital signs</div>
+							<div class="arrow"><img src="images/arrow_down.png" /></div>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="text_sections">
+				<div id="vision">
+					<h3 class="pt">Our vision</h3>
+					<h3 class="en">Our vision</h3>
+					<div>Our vision text here</div>
+				</div>
+				<div id="mission">
+					<h3 class="pt">Our mission</h3>
+					<h3 class="en">Our mission</h3>
+					<div>Our mission text here</div>
+				</div>
+				<div id="services">
+					<h3 class="pt">Services Offered</h3>
+					<h3 class="en">Services Offered</h3>
+					<div>
+						<p><strong>THE SERVICES WE OFFER</strong></p>
+						<p>For RHI Magnesita, exact information on master data of customers, vendors and materials is indispensable. As sources of data increase, managing it consistently and keeping it up to date is a complex task.</p>
+						<p>We have several hubs and teams to keep record of our master data. To make sure everyone uses the same information, all colleagues can and should make use of the Master Data Services offered by these teams. Therefore, we want to provide an oversight of the services scope and where you can turn to if you require specific services.</p>
+					</div>
+				</div>
+				<div id="pilares">
+					<h3 class="pt">Pilares do BSC</h3>
+					<h3 class="en">Pilares do BSC</h3>
+					<div>Pilares do BSC text here</div>
+				</div>
+				<div id="organizacao">
+					<h3 class="pt">Organização/Organograma</h3>
+					<h3 class="en">Organização/Organograma</h3>
+					<div><img src="images/organizacao.png" /></div>
+				</div>
+				<div id="contato">
+					<h3 class="pt">Pontos de contato</h3>
+					<h3 class="en">Pontos de contato</h3>
+					<div>Pontos de contato text here</div>
+				</div>
+				<div id="manuais">
+					<h3 class="pt">Manuais</h3>
+					<h3 class="en">Manuais</h3>
+					<div>Manuais text here</div>
+				</div>
+				<div id="catalogos">
+					<h3 class="pt">Catálogos de serviço</h3>
+					<h3 class="en">Catálogos de serviço</h3>
+					<div>Catálogos de serviços text here</div>
+				</div>
+				<div id="projetos">
+					<h3 class="pt">Projetos (roadmap)</h3>
+					<h3 class="en">Projetos (roadmap)</h3>
+					<div>Projetos (roadmap) text here</div>
+				</div>
+				<div id="curiosidades">
+					<h3 class="pt">Curiosidades/highlights </h3>
+					<h3 class="en">Curiosidades/highlights </h3>
+					<div>Curiosidades/highlights text here</div>
+				</div>
+				<div id="responsabilidades">
+					<h3 class="pt">Responsabilidades</h3>
+					<h3 class="en">Responsabilidades</h3>
+					<div>Responsabilidades text here</div>
+				</div>
+				<div id="mapa">
+					<h3 class="pt">Mapa de processos</h3>
+					<h3 class="en">Mapa de processos</h3>
+					<div>Mapa de processos text here</div>
+				</div>
+				<div id="links">
+					<h3 class="pt">Central de links</h3>
+					<h3 class="en">Central de links</h3>
+					<div>Central de links text here</div>
+				</div>
+				<div id="calendario">
+					<h3 class="pt">Calendário</h3>
+					<h3 class="en">Calendário</h3>
+					<div>Calendário text here</div>
+				</div>
+				<div id="vital">
+					<h3 class="pt">Vital signs</h3>
+					<h3 class="en">Vital signs</h3>
+					<div>Vital signs text here</div>
+				</div>
+			</div>
+		</div>
+		<button id="topBtn" title="Go to top"><img src="images/top.png" /></button>
+		<div id="snackbar"></div>
+	</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(window).bind('scroll', function() {
+		if($(this).scrollTop() > 200) {
+			$("#topBtn").slideDown("fast");
+		} else {
+			$("#topBtn").slideUp("fast");
+		}
+	});
+	$("#topBtn").click(function() {
+		$("html, body").animate({
+			scrollTop: 0
+		}, 500);
+	});
+	$("#menuButtons > div > button").click(function(e) {
+		$("button").removeClass("button__active");
+		$("#" + $(this).attr("id")).addClass("button__active")
+		e.preventDefault();
+		goToByScroll($(this).attr("id"));
+	});
+	
+	$(".language_section > button").click(function(e) {		
+		var lang =  $(this).attr("id");
+		var text = "";
+		
+		if(lang == "br"){
+			$(".pt").show();
+			$(".en").hide();			
+			$("#snackbar").text("Idioma português selecionado.");
+		}		
+		else if(lang="en"){
+			$(".pt").hide();
+			$(".en").show();
+			$("#snackbar").text("English language selected.")	
+		}
+				
+		  $("#snackbar").addClass("show");
+
+		  // After 3 seconds, remove the show class from DIV
+		  setTimeout(function(){ $("#snackbar").removeClass("show"); }, 3000);
+		  
+		e.preventDefault();		
+	});
+	
+	var introElements = $('.intro-content');
+
+	function animateIntro() {
+		introElements.each(function(i) {
+			setTimeout(function() {
+				introElements.eq(i).addClass('is-visible');
+			}, 150 * (i + 1));
+		});
+	}
+	setTimeout(function() {
+		animateIntro();
+	}, 200);
+	setTimeout(function() {
+		$(".intro").fadeToggle("slow");
+		$(".content").show();
+	}, 2500);
+});
+
+function goToByScroll(id) {
+	// Scroll
+	id = id.replace("btn", "");
+	$('html,body').animate({
+		scrollTop: $("#" + id).offset().top
+	}, 'slow');
+}
+</script>
+
+</html>
